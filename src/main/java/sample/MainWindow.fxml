@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="600" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainWindowController">
+   <left>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="Opcje listy">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="51.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="-1.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" text="wczytaj" />
+                        <Button layoutX="-1.0" layoutY="52.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" text="zapisz" />
+                        <Button layoutX="-1.0" layoutY="90.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" text="kasuj" />
+                        <Button layoutX="-1.0" layoutY="129.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" text="nowa " />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Dadaj studenta">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="addButton" layoutX="109.0" layoutY="408.0" mnemonicParsing="false" onAction="#addStudent" text="Dodaj" />
+                        <TextField fx:id="newStudentName" layoutX="7.0" layoutY="43.0" prefHeight="31.0" prefWidth="167.0" promptText="imię" />
+                        <TextField fx:id="newStudentLastname" layoutX="7.0" layoutY="87.0" prefHeight="31.0" prefWidth="168.0" promptText="nazwisko" />
+                        <Label layoutX="14.0" layoutY="14.0" text="Nowy student" />
+                        <TextField fx:id="newStudentSemester" layoutX="7.0" layoutY="174.0" prefHeight="31.0" prefWidth="168.0" promptText="semestr" />
+                        <TextField fx:id="newStudentIndex" layoutX="7.0" layoutY="130.0" prefHeight="31.0" prefWidth="168.0" promptText="index" />
+                        <CheckBox fx:id="hasPayed" layoutX="14.0" layoutY="216.0" mnemonicParsing="false" text="zapłacił" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Rozliczenia">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="isPayedLabel" layoutX="30.0" layoutY="73.0" />
+                        <CheckBox fx:id="paymentSelection" layoutX="29.0" layoutY="106.0" mnemonicParsing="false" text="zapłacił"  />
+                        <Label fx:id="pickedStudentLabel" layoutX="14.0" layoutY="14.0" prefHeight="21.0" prefWidth="175.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+   </left>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <Label prefHeight="19.0" prefWidth="35.0" text="Label" BorderPane.alignment="BOTTOM_RIGHT" />
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView id="studentTable" fx:id="studentTable" prefHeight="408.0" prefWidth="598.0">
+              <columns>
+                <TableColumn id="indexColumn" fx:id="indexColumn" prefWidth="75.0" text="Index" />
+                <TableColumn id="nameColumn" fx:id="nameColumn" prefWidth="192.0" text="Imię" />
+                  <TableColumn id="lastnameColumn" fx:id="lastnameColumn" prefWidth="237.0" text="Nazwisko" />
+                  <TableColumn id="semesterColumn" fx:id="semesterColumn" prefWidth="70.0" text="Semestr" />
+              </columns>
+            </TableView>
+            <Label text="Wybrany">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="pickedStudentLabel1" layoutX="30.0" layoutY="479.0" prefHeight="21.0" prefWidth="308.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Button fx:id="deleteSelectedStudent" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeStudent" text="Usuń wybranego">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="350.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
