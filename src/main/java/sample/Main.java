@@ -24,9 +24,9 @@ public class Main extends Application {
 
         FXMLLoader loader=new FXMLLoader();
         loader.setLocation(MainWindowController.class.getClassLoader().getResource("sample/MainWindow.fxml"));
-//        loader.setLocation(getClass().getClassLoader().getResource("sample/MainWindow.fxml"));
-//        Scene scene=new Scene(loader.load(),1000,600);
-//        stage.setScene(scene);
+        loader.setLocation(getClass().getClassLoader().getResource("sample/MainWindow.fxml"));
+        Scene scene=new Scene(loader.load(),1000,600);
+        stage.setScene(scene);
         stage.setTitle("Program Trubo Uczelnia");
 
         stage.show();
