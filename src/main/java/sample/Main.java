@@ -1,19 +1,22 @@
 package sample;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class Main extends Application {
 
+    public static Dao<Student,Integer> daoStudents;
 
 
-
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
         FXMLLoader loader=new FXMLLoader();
         loader.setLocation(Main.class.getResource("/fxml/MainWindow.fxml"));
         Scene scene=new Scene(loader.load(),1000,600);
@@ -24,6 +27,9 @@ public class Main extends Application {
 
         stage.setOnCloseRequest(event -> MainWindowController.closeProgram());
         DbManager.initDatabase();
+        daoStudents = DaoManager.createDao(DbManager.connectionSource, Student.class);
+
+
 
     }
 

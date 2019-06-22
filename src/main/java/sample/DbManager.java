@@ -1,5 +1,7 @@
 package sample;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -10,7 +12,7 @@ import java.sql.SQLException;
 public class DbManager {
 
     private static String databaseUrl = "jdbc:sqlite:students.db";
-    private static ConnectionSource connectionSource;
+    public static ConnectionSource connectionSource;
 
     public static void initDatabase(){
         createConnectionSource();

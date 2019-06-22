@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -31,15 +32,16 @@ public class MainWindowController implements Initializable {
     private CheckBox hasPayed, paymentSelection;
 
 
+
     public ObservableList studentsToTable() {
         ObservableList<Student> studentsList = FXCollections.observableArrayList();
-        studentsList.add(new Student("Szczepan", "Charasimowicz", 14792, true, 5));
-        studentsList.add(new Student("Kuba", "Kubuś", 64258, true, 2));
-        studentsList.add(new Student("Micha", "Lamborgini", 11144, true, 2));
-        studentsList.add(new Student("Kierowca", "Autobusa", 23548, true, 4));
-        studentsList.add(new Student("Marcin", "Dobuzibierski", 23458, false, 5));
-        studentsList.add(new Student("Brajanek", "Jackson", 19792, true, 3));
-        studentsList.add(new Student("Allah", "Akbar", 33658, true, 1));
+//        studentsList.add(new Student("Szczepan", "Charasimowicz", 14792, true, 5));
+//        studentsList.add(new Student("Kuba", "Kubuś", 64258, true, 2));
+//        studentsList.add(new Student("Micha", "Lamborgini", 11144, true, 2));
+//        studentsList.add(new Student("Kierowca", "Autobusa", 23548, true, 4));
+//        studentsList.add(new Student("Marcin", "Dobuzibierski", 23458, false, 5));
+//        studentsList.add(new Student("Brajanek", "Jackson", 19792, true, 3));
+//        studentsList.add(new Student("Allah", "Akbar", 33658, true, 1));
 
         return studentsList;
     }
@@ -70,10 +72,18 @@ public class MainWindowController implements Initializable {
     return studentTable.getSelectionModel().getSelectedItem();
 }
 
-    public void addStudent() {
-        Student student = new Student(newStudentName.getText(), newStudentLastname.getText(),
-                Integer.parseInt(newStudentIndex.getText()), hasPayed.isSelected(), Integer.parseInt(newStudentSemester.getText()));
+
+    public void addStudent() throws SQLException {
+        Student student=new Student();
+        student.setName(newStudentName.getText());
+        student.setLastname(newStudentLastname.getText());
+        student.setIndexNumber(Integer.parseInt(newStudentIndex.getText()));
+        student.setHasPayed(hasPayed.isSelected());
+        student.setSemster(Integer.parseInt(newStudentSemester.getText()));
+//        Student student = new Student(newStudentName.getText(), newStudentLastname.getText(),
+//                Integer.parseInt(newStudentIndex.getText()), hasPayed.isSelected(), Integer.parseInt(newStudentSemester.getText()));
         studentTable.getItems().add(student);
+        Main.daoStudents.create(student);
     }
 
     public void removeStudent() {

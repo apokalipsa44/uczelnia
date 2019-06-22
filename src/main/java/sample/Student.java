@@ -12,13 +12,13 @@ public class Student {
     @DatabaseField(columnName = "NAME")
     private String name;
 
-    @DatabaseField(columnName = "LASNAME")
+    @DatabaseField(columnName = "LASTNAME")
     private String lastname;
 
     @DatabaseField(columnName = "INDEX")
     private int indexNumber;
 
-    @DatabaseField(columnName = "HASPAYED")
+    @DatabaseField(columnName = "HAS_PAYED")
     private boolean hasPayed;
 
     @DatabaseField(columnName = "SEMESTER")
@@ -64,13 +64,13 @@ public class Student {
         this.semster = semster;
     }
 
-    public Student(String name, String lastname, int indexNumber, boolean hasPayed, int semster) {
-        this.name = name;
-        this.lastname = lastname;
-        this.indexNumber = indexNumber;
-        this.hasPayed = hasPayed;
-        this.semster = semster;
-    }
+//    public Student(String name, String lastname, int indexNumber, boolean hasPayed, int semster) {
+//        this.name = name;
+//        this.lastname = lastname;
+//        this.indexNumber = indexNumber;
+//        this.hasPayed = hasPayed;
+//        this.semster = semster;
+//    }
 
     public Student() {
     }
