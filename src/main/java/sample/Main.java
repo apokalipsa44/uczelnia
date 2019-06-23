@@ -28,8 +28,9 @@ public class Main extends Application {
         stage.setOnCloseRequest(event -> MainWindowController.closeProgram());
         DbManager.initDatabase();
         daoStudents = DaoManager.createDao(DbManager.connectionSource, Student.class);
-
-
+Student student=new Student();
+        StudentDao studentDao=new StudentDao(DbManager.getConnectionSource());
+        studentDao.createOrUpdate(Student.class, student);
 
     }
 
