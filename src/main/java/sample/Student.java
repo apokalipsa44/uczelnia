@@ -64,13 +64,13 @@ public class Student implements IStudent {
         this.semster = semster;
     }
 
-//    public Student(String name, String lastname, int indexNumber, boolean hasPayed, int semster) {
-//        this.name = name;
-//        this.lastname = lastname;
-//        this.indexNumber = indexNumber;
-//        this.hasPayed = hasPayed;
-//        this.semster = semster;
-//    }
+    public Student(String name, String lastname, int indexNumber, boolean hasPayed, int semster) {
+        this.name = name;
+        this.lastname = lastname;
+        this.indexNumber = indexNumber;
+        this.hasPayed = hasPayed;
+        this.semster = semster;
+    }
 
     public Student() {
     }

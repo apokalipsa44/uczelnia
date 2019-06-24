@@ -1,5 +1,6 @@
 package sample;
 
+import com.j256.ormlite.dao.DaoManager;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,10 +32,10 @@ public class MainWindowController implements Initializable {
     @FXML
     private CheckBox hasPayed, paymentSelection;
 
-
-
-    public ObservableList studentsToTable() {
-        ObservableList<Student> studentsList = FXCollections.observableArrayList();
+    public ObservableList studentsToTable() throws SQLException {
+//        ObservableList<Student> studentsList = FXCollections.observableArrayList();
+        ObservableList<Student> studentsList = FXCollections.observableList(Main.studentsListDB);
+        studentsList.add(Main.daoStudents.queryForId(1)) ;
 //        studentsList.add(new Student("Szczepan", "Charasimowicz", 14792, true, 5));
 //        studentsList.add(new Student("Kuba", "Kubuś", 64258, true, 2));
 //        studentsList.add(new Student("Micha", "Lamborgini", 11144, true, 2));
@@ -42,7 +43,8 @@ public class MainWindowController implements Initializable {
 //        studentsList.add(new Student("Marcin", "Dobuzibierski", 23458, false, 5));
 //        studentsList.add(new Student("Brajanek", "Jackson", 19792, true, 3));
 //        studentsList.add(new Student("Allah", "Akbar", 33658, true, 1));
-
+//        studentsList = (ObservableList<Student>) Main.daoStudents.queryForAll();
+//        System.out.println(Main.daoStudents.queryForAll());
         return studentsList;
     }
 
@@ -65,16 +67,16 @@ public class MainWindowController implements Initializable {
 
 
                         }
+                    }
                 }
             }
-        }
-    });
-    return studentTable.getSelectionModel().getSelectedItem();
-}
+        });
+        return studentTable.getSelectionModel().getSelectedItem();
+    }
 
 
     public void addStudent() throws SQLException {
-        Student student=new Student();
+        Student student = new Student();
         student.setName(newStudentName.getText());
         student.setLastname(newStudentLastname.getText());
         student.setIndexNumber(Integer.parseInt(newStudentIndex.getText()));
@@ -90,22 +92,22 @@ public class MainWindowController implements Initializable {
         studentTable.getItems().remove(studentTable.getSelectionModel().getSelectedIndex());
         pickedStudentLabel1.setText("Student został usunięty.");
     }
-    public void studentPayment(){
+
+    public void studentPayment() {
         paymentSelection.setSelected(false);
-        paymentSelection.selectedProperty().addListener(new ChangeListener<Boolean>(){
+        paymentSelection.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-                    if (pickAStudent().isHasPayed()==false){
+                if (newValue) {
+                    if (pickAStudent().isHasPayed() == false) {
                         pickAStudent().setHasPayed(true);
                         isPayedLabel.setText("Czesne zostało opłacone.");
                     }
 
                 }
             }
-            });
-
+        });
 
 
     }
@@ -113,11 +115,27 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        DbManager.initDatabase();
+        try {
+            Main.daoStudents = DaoManager.createDao(DbManager.connectionSource, Student.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Main.studentsListDB =  Main.daoStudents.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         nameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
         lastnameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastname"));
         indexColumn.setCellValueFactory(new PropertyValueFactory<Student, Integer>("indexNumber"));
         semesterColumn.setCellValueFactory(new PropertyValueFactory<Student, Integer>("semster"));
-        studentTable.setItems(studentsToTable());
+        try {
+            studentTable.setItems(studentsToTable());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         pickAStudent();
         studentPayment();
 
