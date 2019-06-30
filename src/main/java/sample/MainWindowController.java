@@ -88,8 +88,10 @@ public class MainWindowController implements Initializable {
         Main.daoStudents.create(student);
     }
 
-    public void removeStudent() {
-        studentTable.getItems().remove(studentTable.getSelectionModel().getSelectedIndex());
+    public void removeStudent() throws SQLException {
+        Student studentToRemove=new Student();
+        studentToRemove=studentTable.getItems().remove(studentTable.getSelectionModel().getSelectedIndex());
+        Main.daoStudents.delete(studentToRemove);
         pickedStudentLabel1.setText("Student został usunięty.");
     }
 
