@@ -35,7 +35,7 @@ public class MainWindowController implements Initializable {
     public ObservableList studentsToTable() throws SQLException {
 //        ObservableList<Student> studentsList = FXCollections.observableArrayList();
         ObservableList<Student> studentsList = FXCollections.observableList(Main.studentsListDB);
-        studentsList.add(Main.daoStudents.queryForId(1)) ;
+        studentsList.add(Main.daoStudents.queryForId(1));
 //        studentsList.add(new Student("Szczepan", "Charasimowicz", 14792, true, 5));
 //        studentsList.add(new Student("Kuba", "Kubuś", 64258, true, 2));
 //        studentsList.add(new Student("Micha", "Lamborgini", 11144, true, 2));
@@ -89,21 +89,31 @@ public class MainWindowController implements Initializable {
     }
 
     public void removeStudent() throws SQLException {
-        Student studentToRemove=new Student();
-        studentToRemove=studentTable.getItems().remove(studentTable.getSelectionModel().getSelectedIndex());
+        Student studentToRemove = new Student();
+        studentToRemove = studentTable.getItems().remove(studentTable.getSelectionModel().getSelectedIndex());
         Main.daoStudents.delete(studentToRemove);
         pickedStudentLabel1.setText("Student został usunięty.");
     }
 
     public void studentPayment() {
-        paymentSelection.setSelected(false);
+
+//        Student student=new Student();
+//        paymentSelection.setSelected(false);
+//        Student finalStudent = student;
         paymentSelection.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        Student student = pickAStudent();
                 if (newValue) {
-                    if (pickAStudent().isHasPayed() == false) {
-                        pickAStudent().setHasPayed(true);
+                    if (student.isHasPayed() == false) {
+                        student.setHasPayed(true);
+//                        pickAStudent().setHasPayed(true);
+                        try {
+                            Main.daoStudents.update(student);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         isPayedLabel.setText("Czesne zostało opłacone.");
                     }
 
@@ -124,7 +134,7 @@ public class MainWindowController implements Initializable {
             e.printStackTrace();
         }
         try {
-            Main.studentsListDB =  Main.daoStudents.queryForAll();
+            Main.studentsListDB = Main.daoStudents.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }

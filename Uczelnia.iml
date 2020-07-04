@@ -16,4 +16,5 @@
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.27.2.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.4.199" level="project" />
   </component>
+  <component name="POM File Configuration" pomFile="" />
 </module>
