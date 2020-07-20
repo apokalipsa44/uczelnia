@@ -1,4 +1,4 @@
-## Uczenlnia is a JavaFX project. Simple student manager appication with database suppport.
+## Uczelnia is a JavaFX project. Simple student manager appication with database suppport.
 
 Technologies used:
 
